@@ -20,6 +20,5 @@ public class user {
     @Id
     private String id;
     private String nome;
-    private String text;
-    
+    private String text;  
 }
