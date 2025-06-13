@@ -21,7 +21,7 @@ public class UserServices implements UserOperations{
     }
 
     @Override
-    public Optional<UserModel> getUserByname(String nome) {
+    public List<UserModel> getUserByname(String nome) {
         return userPersistence.getUserByname(nome);
     }
 }

@@ -9,6 +9,8 @@ import com.crudspring.crud_spring.Adapter.dto.Response.UserServiceResponse;
 import com.crudspring.crud_spring.core.Model.UserModel;
 import com.crudspring.crud_spring.core.Users.Port.in.UserOperations;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
+@AllArgsConstructor
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
 
@@ -51,23 +52,24 @@ public class UserController {
 }
 
 @GetMapping("/{nome}")
-public ResponseEntity<ResponseEnvelope<UserServiceResponse>> getUserByname(@PathVariable("nome") String nome) {
-    Optional<UserModel> model = userOperations.getUserByname(nome);
+public ResponseEntity<ResponseEnvelope<List<UserServiceResponse>>> getUserByName(@PathVariable("nome") String nome) {
+    List<UserModel> users = userOperations.getUserByname(nome);
 
-    if (model.isEmpty()) {
+    if (users.isEmpty()) {
         log.error("Erro ao procurar user com esse nome");
         return ResponseEntity.notFound().build();
     }
 
-    return new ResponseEntity<>(
-        ResponseEnvelope.<UserServiceResponse>builder()
-            .content(userMapper.modelToResponse(model.get()))
-            .build(),
-        HttpStatus.OK
-    );
+        List<UserServiceResponse> resp = userMapper.modelsToServiceResponses(users);
+
+
+    return ResponseEntity.ok(
+    ResponseEnvelope.<List<UserServiceResponse>>builder()
+        .content(resp)
+        .build()
+);
+
 }
 
-
-
-    
 }
+
