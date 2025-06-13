@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.crudspring.crud_spring.core.Model.UserModel;
 import com.crudspring.crud_spring.core.Users.Port.out.UserPersistence;
 import lombok.AllArgsConstructor;
@@ -19,11 +21,13 @@ public class UserPersistenceImpl implements UserPersistence {
 
     private final MongoTemplate mongoTemplate;
 
+    @Transactional (readOnly = true)
     @Override
     public List<UserModel> getAllUser() {
         return mongoTemplate.findAll(UserModel.class);
     }
 
+    @Transactional (readOnly = true)
     @Override
     public List<UserModel> getUserByname(String nome) {
         if (nome == null || nome.isEmpty()) {
@@ -34,11 +38,13 @@ public class UserPersistenceImpl implements UserPersistence {
         return mongoTemplate.find(query, UserModel.class);
     }
 
+    @Transactional 
     @Override
     public UserModel insertNewUser(UserModel model) {
         return mongoTemplate.save(model);
     }
 
+    @Transactional 
     @Override
     public UserModel updateUser(UserModel model) {
         
