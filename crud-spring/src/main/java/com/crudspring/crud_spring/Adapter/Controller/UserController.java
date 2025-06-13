@@ -1,6 +1,7 @@
 package com.crudspring.crud_spring.Adapter.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crudspring.crud_spring.Adapter.Mapper.userMapp;
@@ -49,9 +50,9 @@ public class UserController {
         HttpStatus.OK);
 }
 
-@GetMapping("/{name}")
-public ResponseEntity<ResponseEnvelope<UserServiceResponse>> getUserByname(@PathVariable String name) {
-    Optional<UserModel> model = userOperations.getUserByname(name);
+@GetMapping("/{nome}")
+public ResponseEntity<ResponseEnvelope<UserServiceResponse>> getUserByname(@PathVariable("nome") String nome) {
+    Optional<UserModel> model = userOperations.getUserByname(nome);
 
     if (model.isEmpty()) {
         log.error("Erro ao procurar user com esse nome");
@@ -65,8 +66,6 @@ public ResponseEntity<ResponseEnvelope<UserServiceResponse>> getUserByname(@Path
         HttpStatus.OK
     );
 }
-
-
 
 
 
