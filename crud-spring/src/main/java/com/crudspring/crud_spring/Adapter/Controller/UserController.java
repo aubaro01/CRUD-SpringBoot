@@ -1,0 +1,74 @@
+package com.crudspring.crud_spring.Adapter.Controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.crudspring.crud_spring.Adapter.Mapper.userMapp;
+import com.crudspring.crud_spring.Adapter.dto.Response.UserServiceResponse;
+import com.crudspring.crud_spring.core.Model.UserModel;
+import com.crudspring.crud_spring.core.Users.Port.in.UserOperations;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
+@Slf4j
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/v1/users")
+
+public class UserController {
+
+    private final UserOperations userOperations;
+    private final userMapp userMapper;
+
+
+    @GetMapping
+    public ResponseEntity<ResponseEnvelope<List<UserServiceResponse>>> getAllUser() {
+
+    List<UserModel> list = userOperations.getAllUser();
+
+    if (list.isEmpty()) {
+        log.error("Nenhum usuário encontrado");
+       
+    }
+
+    List<UserServiceResponse> resp = userMapper.modelsToServiceResponses(list);
+
+    return new ResponseEntity<>(ResponseEnvelope.<List<UserServiceResponse>>builder()
+        .content(resp)
+        .build(),
+        HttpStatus.OK);
+}
+
+@GetMapping("/{name}")
+public ResponseEntity<ResponseEnvelope<UserServiceResponse>> getUserByname(@PathVariable String name) {
+    Optional<UserModel> model = userOperations.getUserByname(name);
+
+    if (model.isEmpty()) {
+        log.error("Erro ao procurar user com esse nome");
+        return ResponseEntity.notFound().build();
+    }
+
+    return new ResponseEntity<>(
+        ResponseEnvelope.<UserServiceResponse>builder()
+            .content(userMapper.modelToResponse(model.get()))
+            .build(),
+        HttpStatus.OK
+    );
+}
+
+
+
+
+
+    
+}
