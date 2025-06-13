@@ -1,7 +1,6 @@
 package com.crudspring.crud_spring.core.Users.Services;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.crudspring.crud_spring.core.Model.UserModel;
 import com.crudspring.crud_spring.core.Users.Port.in.UserOperations;
@@ -23,5 +22,15 @@ public class UserServices implements UserOperations{
     @Override
     public List<UserModel> getUserByname(String nome) {
         return userPersistence.getUserByname(nome);
+    }
+
+    @Override
+    public UserModel insertNewUser(UserModel model) {
+        return userPersistence.insertNewUser(model);
+    }
+
+    @Override
+    public UserModel updateUser(UserModel model) {
+        return userPersistence.updateUser(model);
     }
 }
