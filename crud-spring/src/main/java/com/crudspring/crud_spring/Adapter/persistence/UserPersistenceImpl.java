@@ -1,7 +1,9 @@
 package com.crudspring.crud_spring.Adapter.persistence;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -22,10 +24,14 @@ public class UserPersistenceImpl implements UserPersistence {
         return mongoTemplate.findAll(UserModel.class);
     }
 
-    @Override
-    public Optional<UserModel> getUserByname(String nome) {
-        Query query = new Query(Criteria.where("nome").is(nome));
-        return Optional.ofNullable(mongoTemplate.findOne(query, UserModel.class));
+     @Override
+     public List<UserModel> getUserByname(String nome) {
+    if (nome == null || nome.isEmpty()) {
+        return Collections.emptyList();
     }
+    String regexPattern = ".*" + Pattern.quote(nome) + ".*";
+    Query query = new Query(Criteria.where("nome").regex(regexPattern, "i"));
+    return mongoTemplate.find(query, UserModel.class);
 }
 
+}
