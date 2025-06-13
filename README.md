@@ -10,4 +10,6 @@ Um CRUD  simples com springBoot e mongoDB
 ## Funcionalidades
 
 - Adicionar, editar e apagar users.
+- Listar todos os user.
+- Listar users pelo nome.
 
