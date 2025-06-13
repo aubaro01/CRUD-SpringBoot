@@ -4,7 +4,6 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.*;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,8 +16,13 @@ public class UserModel {
     private String id;
     private String nome;
     private String circuito;
-    public void setId(ObjectId objectId) {
-        // TODO Auto-generated method stub
+
+    public void setId(String objectId) {
         throw new UnsupportedOperationException("Unimplemented method 'setId'");
     }
+
+    public void setId(ObjectId objectId) {
+        throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    }
+
 }
