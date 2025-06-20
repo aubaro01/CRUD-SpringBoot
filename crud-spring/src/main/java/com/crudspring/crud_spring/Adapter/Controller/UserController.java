@@ -54,7 +54,7 @@ public class UserController {
 
     @GetMapping("/{nome}")
     public ResponseEntity<ResponseEnvelope<List<UserServiceResponse>>> getUserByName(
-            @PathVariable("nome") String nome) {
+            @PathVariable String nome) {
         List<UserModel> users = userOperations.getUserByname(nome);
 
         if (users.isEmpty()) {
