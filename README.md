@@ -1,6 +1,6 @@
 # CRUD_SpringBoot
 
-Um CRUD  simples com springBoot e mongoDB
+Um CRUD  simples com springBoot e mongoDB, que aplica os principios de uma arquiterura hexagonal.
 
 ## Stack utilizada
 
