@@ -4,7 +4,7 @@ Um CRUD  simples com springBoot e mongoDB, que aplica os principios de uma arqui
 
 ## Stack utilizada
 
-**Spring boot**, **MongoDB**
+**Java**, **Spring boot**, **MongoDB**
 
 
 ## Funcionalidades
