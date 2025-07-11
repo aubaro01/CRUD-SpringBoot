@@ -6,6 +6,7 @@ Um CRUD  simples com springBoot e mongoDB, que aplica os principios de uma arqui
 
 **Java**, **Spring boot**, **MongoDB**
 
+<img width="1800" height="798" alt="image" src="https://github.com/user-attachments/assets/1e776550-cfdf-465b-9ace-e0fdbe8579c4" />
 
 ## Funcionalidades
 
